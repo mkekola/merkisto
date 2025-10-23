@@ -1,7 +1,8 @@
-# Merkistö
+<img src="./static/images/merkisto_logo.png" alt="Merkistö Logo" width="400"/>
+<br/>
 *HY Tietokannat ja web-ohjelmointi-kurssin projektityö: Haalarimerkkikirjasto*
 
-## Sovelluksen toimminot
+## Sovelluksen toiminnallisuudet
 - Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 - Käyttäjä pystyy lisämään, muokkaamaan ja poistamaan haalarimerkkejä sovelluksessa.
 - Haalarimerkeille pystyy lisäämään tietoja, esimerkiksi mistä saatu/ostettu tieto.
