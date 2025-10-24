@@ -1,5 +1,6 @@
 <img src="./static/images/merkisto_logo.png" alt="Merkistö Logo" width="400"/>
 <br/>
+
 *HY Tietokannat ja web-ohjelmointi-kurssin projektityö: Haalarimerkkikirjasto*
 
 ## Sovelluksen toiminnallisuudet
