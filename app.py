@@ -14,6 +14,16 @@ def index():
     all_patches = patches.get_all_patches()
     return render_template("index.html", patches=all_patches)
 
+@app.route("/find_patch", methods=["GET", "POST"])
+def find_patch():
+    query = request.args.get("query")
+    if query:
+        results = patches.find_patches(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_patch.html", query=query, patches=results)
+
 @app.route("/patch/<int:patch_id>")
 def patch_detail(patch_id):
     patch = patches.get_patch(patch_id)

@@ -28,3 +28,11 @@ def update_patch(patch_id, title, description, technique):
 def remove_patch(patch_id):
     sql = "DELETE FROM patches WHERE id = ?"
     db.execute(sql, [patch_id])
+
+def find_patches(query):
+    sql = """SELECT id, title
+             FROM patches
+             WHERE title LIKE ? OR
+             description LIKE ?
+             ORDER BY id DESC"""
+    return db.query(sql, ["%" + query + "%", "%" + query + "%"])
