@@ -10,11 +10,17 @@ def get_all_patches():
     return db.query(sql)
 
 def get_patch(patch_id):
-    sql = """SELECT patches.title,
+    sql = """SELECT patches.id,
+                    patches.title,
                     patches.description,
                     patches.technique,
+                    users.id user_id,
                     users.username
              FROM patches, users
              WHERE patches.user_id = users.id AND
                    patches.id = ?"""
     return db.query(sql, [patch_id])[0]
+
+def update_patch(patch_id, title, description, technique):
+    sql = "UPDATE patches SET title = ?, description = ?, technique = ? WHERE id = ?"
+    db.execute(sql, [title, description, technique, patch_id])

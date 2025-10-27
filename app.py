@@ -34,6 +34,21 @@ def create_patch():
 
     return redirect("/")
 
+@app.route("/edit_patch/<int:patch_id>")
+def edit_patch(patch_id):
+    patch = patches.get_patch(patch_id)
+    return render_template("edit_patch.html", patch=patch)
+
+@app.route("/update_patch/<int:patch_id>", methods=["POST"])
+def update_patch(patch_id):
+    title = request.form["title"]
+    description = request.form["description"]
+    technique = request.form["technique"]
+
+    patches.update_patch(patch_id, title, description, technique)
+
+    return redirect("/patch/" + str(patch_id))
+
 @app.route("/register")
 def register():
     return render_template("register.html")

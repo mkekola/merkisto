@@ -6,6 +6,9 @@
 
   <body>
     <h1>{{ patch.title }}</h1>
+    {% if session.user_id == patch.user_id %}
+    <p><a href="/edit_patch/{{ patch.id }}">Muokkaa</a></p>
+    {% endif %}
     <p><strong>Kuvaus:</strong> {{ patch.description }}</p>
     <p><strong>Tekniikka:</strong> {{ patch.technique }}</p>
     <p><strong>Lisääjä:</strong> {{ patch.username }}</p>
