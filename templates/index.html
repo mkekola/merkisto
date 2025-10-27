@@ -10,7 +10,10 @@
 
     {% if session.username %}
 
-    <p>Olet kirjautunut nimellä {{ session.username }}</p>
+    <p>
+      Olet kirjautunut nimellä {{ session.username }}, id-numerosi on {{
+      session.user_id }}.
+    </p>
 
     {% endif %}
 
@@ -20,6 +23,10 @@
       <a href="/register">Luo tunnus</a>
 
       <a href="/logout">Kirjaudu ulos</a>
+    </p>
+
+    <p>
+      <a href="/new_patch">Lisää uusi merkki</a>
     </p>
   </body>
 </html>
