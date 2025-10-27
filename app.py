@@ -49,6 +49,17 @@ def update_patch(patch_id):
 
     return redirect("/patch/" + str(patch_id))
 
+@app.route("/remove_patch/<int:patch_id>", methods=["GET", "POST"])
+def remove_patch(patch_id):
+    patch = patches.get_patch(patch_id)
+    if request.method == "POST":
+        if "remove" in request.form:
+            patches.remove_patch(patch_id)
+            return redirect("/")
+        elif "back" in request.form:
+            return redirect("/patch/" + str(patch_id))
+    return render_template("remove_patch.html", patch=patch)
+
 @app.route("/register")
 def register():
     return render_template("register.html")

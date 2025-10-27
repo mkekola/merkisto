@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Merkin poisto</title>
+  </head>
+
+  <body>
+    <h1>Merkin poisto</h1>
+    <form action="/remove_patch/{{ patch.id }}" method="post">
+      <p>
+        Oletko varma, että haluat poistaa merkin "{{ patch.title }}"?
+      </p>
+      <input type="submit" name="remove" value="Poista merkki" />
+      <input type="submit" name="back" value="Peruuta" />
+    </form>
+  </body>
+</html>

@@ -24,3 +24,7 @@ def get_patch(patch_id):
 def update_patch(patch_id, title, description, technique):
     sql = "UPDATE patches SET title = ?, description = ?, technique = ? WHERE id = ?"
     db.execute(sql, [title, description, technique, patch_id])
+
+def remove_patch(patch_id):
+    sql = "DELETE FROM patches WHERE id = ?"
+    db.execute(sql, [patch_id])
