@@ -28,5 +28,12 @@
     <p>
       <a href="/new_patch">Lisää uusi merkki</a>
     </p>
+
+    <h2>Merkit</h2>
+    <ul>
+      {% for patch in patches %}
+      <li><a href="/patch/{{ patch.id }}">{{ patch.title }}</a></li>
+      {% endfor %}
+    </ul>
   </body>
 </html>

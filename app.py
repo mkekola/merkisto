@@ -11,7 +11,13 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    all_patches = patches.get_all_patches()
+    return render_template("index.html", patches=all_patches)
+
+@app.route("/patch/<int:patch_id>")
+def patch_detail(patch_id):
+    patch = patches.get_patch(patch_id)
+    return render_template("show_patch.html", patch=patch)
 
 @app.route("/new_patch")
 def new_patch():
@@ -24,8 +30,7 @@ def create_patch():
     technique = request.form["technique"]
     user_id = session["user_id"]
 
-    sql = "INSERT INTO patches (title, description, technique, user_id) VALUES (?, ?, ?, ?)"
-    db.execute(sql, [title, description, technique, user_id])
+    patches.add_patch(title, description, technique, user_id)
 
     return redirect("/")
 
