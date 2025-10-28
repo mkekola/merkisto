@@ -47,7 +47,8 @@ def show_patch(patch_id):
 @app.route("/new_patch")
 def new_patch():
     require_login()
-    return render_template("new_patch.html")
+    classes = patches.get_all_classes()
+    return render_template("new_patch.html", classes=classes)
 
 @app.route("/create_patch", methods=["POST"])
 def create_patch():
@@ -64,13 +65,11 @@ def create_patch():
     user_id = session["user_id"]
 
     classes = []
-    category = request.form["category"]
-    if category:
-        classes.append(("Kategoria:", category))
-    source = request.form["source"]
-    if source:
-        classes.append(("Lähde:", source))
-
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
+            
     patches.add_patch(title, description, technique, user_id, classes)
 
     return redirect("/")

@@ -12,6 +12,12 @@ CREATE TABLE patches (
     user_id INTEGER REFERENCES users
 );
 
+CREATE TABLE classes (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    value TEXT
+);
+
 CREATE TABLE patch_classes (
     id INTEGER PRIMARY KEY,
     patch_id INTEGER REFERENCES patches,

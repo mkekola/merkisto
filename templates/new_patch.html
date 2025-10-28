@@ -28,29 +28,17 @@
         <input type="radio" name="technique" value="Painettu" required />
         Painettu<br />
       </p>
+      {% for class in classes %}
       <p>
-        Kategoria: <br />
-        <select name="category">
-          <option value="valitse">-- Valitse --</option>
-          <option value="meemit">Meemit</option>
-          <option value="alkoholi">Alkoholi</option>
-          <option value="eläimet">Eläimet</option>
-          <option value="tapahtumat">Tapahtumat</option>
-          <option value="opiskelu">Opiskelu</option>
-          <option value="jarjestot">Järjestöt</option>
-          <option value="muu">Muu</option>
+        {{ class }}: <br />
+        <select name="classes">
+          <option value="">-- Valitse --</option>
+          {% for option in classes[class] %}
+          <option value="{{ class }}:{{ option }}">{{ option }}</option>
+          {% endfor %}
         </select>
       </p>
-      <p>
-        Mistä hankittu: <br />
-        <select name="source">
-          <option value="valitse">-- Valitse --</option>
-          <option value="tapahtumat">Saatu tapahtumasta</option>
-          <option value="nettikauppa">Ostettu nettikaupasta</option>
-          <option value="jarjestot">Ostettu järjestöiltä</option>
-          <option value="muu">Muu</option>
-        </select>
-      </p>
+      {% endfor %}
       <input type="submit" value="Lisää merkki" />
     </form>
   </body>

@@ -8,22 +8,19 @@
     <h1>{{ patch.title }}</h1>
     {% if session.user_id == patch.user_id %}
     <p>
-        <a href="/edit_patch/{{ patch.id }}">Muokkaa</a>
-        <a href="/remove_patch/{{ patch.id }}">Poista</a>
+      <a href="/edit_patch/{{ patch.id }}">Muokkaa</a>
+      <a href="/remove_patch/{{ patch.id }}">Poista</a>
     </p>
     {% endif %}
     <p><strong>Kuvaus:</strong> {{ patch.description }}</p>
     <p><strong>Tekniikka:</strong> {{ patch.technique }}</p>
-    {% if classes %}
-    <p>
-      Luokat:
-      <ul>
+    <ul>
+      {% if classes %}
         {% for class in classes %}
-        <li><strong>{{ class.title }}</strong> {{ class.value }}</li>
+          <li>{{ class.title}}: {{ class.value }}</li>
         {% endfor %}
-      </ul>
-    </p>
-    {% endif %}
+      {% endif %}
+    </ul>
     <p>Lisääjä: <a href="/user/{{ patch.user_id }}">{{ patch.username }}</a></p>
     <p><a href="/">Takaisin etusivulle</a></p>
   </body>
