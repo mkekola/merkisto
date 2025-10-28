@@ -14,7 +14,7 @@
     {% endif %}
     <p><strong>Kuvaus:</strong> {{ patch.description }}</p>
     <p><strong>Tekniikka:</strong> {{ patch.technique }}</p>
-    <p><strong>Lisääjä:</strong> {{ patch.username }}</p>
+    <p>Lisääjä: <a href="/user/{{ patch.user_id }}">{{ patch.username }}</a></p>
     <p><a href="/">Takaisin etusivulle</a></p>
   </body>
 </html>

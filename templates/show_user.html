@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Käyttäjä {{ user.username }}</title>
+  </head>
+
+  <body>
+    <h1>Käyttäjä {{ user.username }}</h1>
+    <p>
+        Käyttäjällä on yhteensä {{ patches | count }} merkkiä.
+    </p>
+    <h2>Merkit</h2>
+    <ul>
+      {% for patch in patches %}
+        <li><a href="/patch/{{ patch.id }}">{{ patch.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <p><a href="/">Takaisin etusivulle</a></p>
+  </body>
+</html>

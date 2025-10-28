@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
 import patches
+import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -17,6 +18,14 @@ def require_login():
 def index():
     all_patches = patches.get_all_patches()
     return render_template("index.html", patches=all_patches)
+
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    patches = users.get_patches(user_id)
+    return render_template("show_user.html", user=user, patches=patches)
 
 @app.route("/find_patch", methods=["GET", "POST"])
 def find_patch():
