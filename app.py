@@ -9,6 +9,10 @@ import patches
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+def require_login():
+    if "user_id" not in session:
+        abort(403)
+
 @app.route("/")
 def index():
     all_patches = patches.get_all_patches()
@@ -33,10 +37,12 @@ def show_patch(patch_id):
 
 @app.route("/new_patch")
 def new_patch():
+    require_login()
     return render_template("new_patch.html")
 
 @app.route("/create_patch", methods=["POST"])
 def create_patch():
+    require_login()
     title = request.form["title"]
     description = request.form["description"]
     technique = request.form["technique"]
@@ -48,6 +54,7 @@ def create_patch():
 
 @app.route("/edit_patch/<int:patch_id>")
 def edit_patch(patch_id):
+    require_login()
     patch = patches.get_patch(patch_id)
     if not patch:
         abort(404)
@@ -57,6 +64,7 @@ def edit_patch(patch_id):
 
 @app.route("/update_patch/<int:patch_id>", methods=["POST"])
 def update_patch(patch_id):
+    require_login()
     patch = patches.get_patch(patch_id)
     if not patch:
         abort(404)
@@ -73,6 +81,7 @@ def update_patch(patch_id):
 
 @app.route("/remove_patch/<int:patch_id>", methods=["GET", "POST"])
 def remove_patch(patch_id):
+    require_login()
     patch = patches.get_patch(patch_id)
     if not patch:
         abort(404)
@@ -129,8 +138,9 @@ def login():
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["username"]
+    if "user_id" in session:
+        del session["user_id"]
+        del session["username"]
     return redirect("/")
 
 
