@@ -44,8 +44,14 @@ def new_patch():
 def create_patch():
     require_login()
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 500:
+        abort(403)
     technique = request.form["technique"]
+    if not technique:
+        abort(403)
     user_id = session["user_id"]
 
     patches.add_patch(title, description, technique, user_id)
@@ -72,8 +78,14 @@ def update_patch(patch_id):
         abort(403)
 
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 500:
+        abort(403)
     technique = request.form["technique"]
+    if not technique:
+        abort(403)
 
     patches.update_patch(patch_id, title, description, technique)
 
