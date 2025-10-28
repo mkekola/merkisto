@@ -14,6 +14,16 @@
     {% endif %}
     <p><strong>Kuvaus:</strong> {{ patch.description }}</p>
     <p><strong>Tekniikka:</strong> {{ patch.technique }}</p>
+    {% if classes %}
+    <p>
+      Luokat:
+      <ul>
+        {% for class in classes %}
+        <li><strong>{{ class.title }}</strong> {{ class.value }}</li>
+        {% endfor %}
+      </ul>
+    </p>
+    {% endif %}
     <p>Lisääjä: <a href="/user/{{ patch.user_id }}">{{ patch.username }}</a></p>
     <p><a href="/">Takaisin etusivulle</a></p>
   </body>

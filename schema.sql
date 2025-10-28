@@ -11,3 +11,10 @@ CREATE TABLE patches (
     technique TEXT,
     user_id INTEGER REFERENCES users
 );
+
+CREATE TABLE patch_classes (
+    id INTEGER PRIMARY KEY,
+    patch_id INTEGER REFERENCES patches,
+    title TEXT,
+    value TEXT
+);

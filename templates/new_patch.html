@@ -13,7 +13,13 @@
       </p>
       <p>
         Kuvaus: <br />
-        <textarea name="description" rows="8" cols="60" maxlength="500" required></textarea>
+        <textarea
+          name="description"
+          rows="8"
+          cols="60"
+          maxlength="500"
+          required
+        ></textarea>
       </p>
       <p>
         Tekniikka: <br />
@@ -21,6 +27,29 @@
         Brodeerattu<br />
         <input type="radio" name="technique" value="Painettu" required />
         Painettu<br />
+      </p>
+      <p>
+        Kategoria: <br />
+        <select name="category">
+          <option value="valitse">-- Valitse --</option>
+          <option value="meemit">Meemit</option>
+          <option value="alkoholi">Alkoholi</option>
+          <option value="eläimet">Eläimet</option>
+          <option value="tapahtumat">Tapahtumat</option>
+          <option value="opiskelu">Opiskelu</option>
+          <option value="jarjestot">Järjestöt</option>
+          <option value="muu">Muu</option>
+        </select>
+      </p>
+      <p>
+        Mistä hankittu: <br />
+        <select name="source">
+          <option value="valitse">-- Valitse --</option>
+          <option value="tapahtumat">Saatu tapahtumasta</option>
+          <option value="nettikauppa">Ostettu nettikaupasta</option>
+          <option value="jarjestot">Ostettu järjestöiltä</option>
+          <option value="muu">Muu</option>
+        </select>
       </p>
       <input type="submit" value="Lisää merkki" />
     </form>

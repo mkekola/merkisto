@@ -1,8 +1,17 @@
 import db
 
-def add_patch(title, description, technique, user_id):
+def add_patch(title, description, technique, user_id, classes):
     sql = "INSERT INTO patches (title, description, technique, user_id) VALUES (?, ?, ?, ?)"
     db.execute(sql, [title, description, technique, user_id])
+
+    patch_id = db.last_insert_id()
+    sql = "INSERT INTO patch_classes (patch_id, title, value) VALUES (?, ?, ?)"
+    for title, value in classes:
+        db.execute(sql, [patch_id, title, value])
+
+def get_classes(patch_id):
+    sql = "SELECT title, value FROM patch_classes WHERE patch_id = ?"
+    return db.query(sql, [patch_id])
 
 def get_all_patches():
     sql = "SELECT id, title FROM patches ORDER BY id DESC"

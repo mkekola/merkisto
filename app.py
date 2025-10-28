@@ -41,7 +41,8 @@ def show_patch(patch_id):
     patch = patches.get_patch(patch_id)
     if not patch:
         abort(404)
-    return render_template("show_patch.html", patch=patch)
+    classes = patches.get_classes(patch_id)
+    return render_template("show_patch.html", patch=patch, classes=classes)
 
 @app.route("/new_patch")
 def new_patch():
@@ -62,7 +63,15 @@ def create_patch():
         abort(403)
     user_id = session["user_id"]
 
-    patches.add_patch(title, description, technique, user_id)
+    classes = []
+    category = request.form["category"]
+    if category:
+        classes.append(("Kategoria:", category))
+    source = request.form["source"]
+    if source:
+        classes.append(("Lähde:", source))
+
+    patches.add_patch(title, description, technique, user_id, classes)
 
     return redirect("/")
 
