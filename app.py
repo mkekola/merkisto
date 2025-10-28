@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import abort, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
@@ -47,10 +47,16 @@ def create_patch():
 @app.route("/edit_patch/<int:patch_id>")
 def edit_patch(patch_id):
     patch = patches.get_patch(patch_id)
+    if patch["user_id"] != session.get("user_id"):
+        abort(403)
     return render_template("edit_patch.html", patch=patch)
 
 @app.route("/update_patch/<int:patch_id>", methods=["POST"])
 def update_patch(patch_id):
+    patch = patches.get_patch(patch_id)
+    if patch["user_id"] != session["user_id"]:
+        abort(403)
+
     title = request.form["title"]
     description = request.form["description"]
     technique = request.form["technique"]
@@ -62,6 +68,8 @@ def update_patch(patch_id):
 @app.route("/remove_patch/<int:patch_id>", methods=["GET", "POST"])
 def remove_patch(patch_id):
     patch = patches.get_patch(patch_id)
+    if patch["user_id"] != session.get("user_id"):
+        abort(403)
     if request.method == "POST":
         if "remove" in request.form:
             patches.remove_patch(patch_id)
