@@ -19,7 +19,8 @@ def get_patch(patch_id):
              FROM patches, users
              WHERE patches.user_id = users.id AND
                    patches.id = ?"""
-    return db.query(sql, [patch_id])[0]
+    result = db.query(sql, [patch_id])
+    return result[0] if result else None
 
 def update_patch(patch_id, title, description, technique):
     sql = "UPDATE patches SET title = ?, description = ?, technique = ? WHERE id = ?"

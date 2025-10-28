@@ -25,8 +25,10 @@ def find_patch():
     return render_template("find_patch.html", query=query, patches=results)
 
 @app.route("/patch/<int:patch_id>")
-def patch_detail(patch_id):
+def show_patch(patch_id):
     patch = patches.get_patch(patch_id)
+    if not patch:
+        abort(404)
     return render_template("show_patch.html", patch=patch)
 
 @app.route("/new_patch")
@@ -47,6 +49,8 @@ def create_patch():
 @app.route("/edit_patch/<int:patch_id>")
 def edit_patch(patch_id):
     patch = patches.get_patch(patch_id)
+    if not patch:
+        abort(404)
     if patch["user_id"] != session.get("user_id"):
         abort(403)
     return render_template("edit_patch.html", patch=patch)
@@ -54,6 +58,8 @@ def edit_patch(patch_id):
 @app.route("/update_patch/<int:patch_id>", methods=["POST"])
 def update_patch(patch_id):
     patch = patches.get_patch(patch_id)
+    if not patch:
+        abort(404)
     if patch["user_id"] != session["user_id"]:
         abort(403)
 
@@ -68,6 +74,8 @@ def update_patch(patch_id):
 @app.route("/remove_patch/<int:patch_id>", methods=["GET", "POST"])
 def remove_patch(patch_id):
     patch = patches.get_patch(patch_id)
+    if not patch:
+        abort(404)
     if patch["user_id"] != session.get("user_id"):
         abort(403)
     if request.method == "POST":
