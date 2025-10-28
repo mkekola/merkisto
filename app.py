@@ -69,7 +69,7 @@ def create_patch():
         if entry:
             parts = entry.split(":")
             classes.append((parts[0], parts[1]))
-            
+
     patches.add_patch(title, description, technique, user_id, classes)
 
     return redirect("/")
