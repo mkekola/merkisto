@@ -20,6 +20,7 @@ def add_patch(title, description, technique, user_id, classes):
     sql = "INSERT INTO patch_classes (patch_id, title, value) VALUES (?, ?, ?)"
     for class_title, class_value in classes:
         db.execute(sql, [patch_id, class_title, class_value])
+    return patch_id
 
 def add_comment(patch_id, user_id, content):
     sql = "INSERT INTO comments (patch_id, user_id, content) VALUES (?, ?, ?)"

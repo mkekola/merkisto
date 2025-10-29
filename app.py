@@ -91,9 +91,8 @@ def create_patch():
                 abort(403)
             classes.append((parts[0], parts[1]))
 
-    patches.add_patch(title, description, technique, user_id, classes)
-
-    return redirect("/")
+    patch_id = patches.add_patch(title, description, technique, user_id, classes)
+    return redirect("/patch/" + str(patch_id))
 
 @app.route("/edit_patch/<int:patch_id>")
 def edit_patch(patch_id):
