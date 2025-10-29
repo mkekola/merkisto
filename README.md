@@ -13,7 +13,7 @@
 - [X] Käyttäjä pystyy lisäämään kuvia lisätyille merkeille.
 - [X] Käyttäjä voi lisätä kategorioita merkeille.
 - [X] Käyttäjäprofiilissa näkyy käyttäjän lisäämät merkit.
-- [] Käyttäjä pystyy kommentoimaan ja tykkäämään omista sekä muiden lisäämistä merkeistä.
+- [ ] Käyttäjä pystyy kommentoimaan ja tykkäämään omista sekä muiden lisäämistä merkeistä.
 
 ## Sovelluksen asennusohjeet
 1. Kloonaa repositorio paikalliselle koneellesi suorittamalla komento:
