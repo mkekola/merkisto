@@ -58,7 +58,10 @@ def get_classes(patch_id):
     return db.query(sql, [patch_id])
 
 def get_all_patches():
-    sql = "SELECT id, title FROM patches ORDER BY id DESC"
+    sql = """SELECT patches.id, patches.title, users.id, users.username
+             FROM patches, users
+             WHERE patches.user_id = users.id
+             ORDER BY patches.id DESC"""
 
     return db.query(sql)
 

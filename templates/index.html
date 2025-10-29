@@ -1,11 +1,17 @@
 {% extends "layout.html" %} {% block title %} Merkistö {% endblock %} {% block
 content %}
-<div class ="patch-list">
-<h2>Merkit</h2>
-  {% for patch in patches %}
-  <div class="patch">
-  <a href="/patch/{{ patch.id }}">{{ patch.title }}</a>
-  </div>
-  {% endfor %}
-</div>
+<main class="wrap">
+  <h2 class="list-title">Merkit</h2>
+  <ul class="patch-list wide">
+    {% for patch in patches %}
+    <li class="patch-item">
+      <a class="patch-link" href="/patch/{{ patch.id }}"
+        >{{ patch.title }}
+        <br />
+        <span class="patch-name">~ {{ patch.username }}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</main>
 {% endblock %}
