@@ -6,6 +6,15 @@ body {
   color: #333;
 }
 
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: clamp(220px, 35vw, 600px);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .main-nav {
   display: flex;
   justify-content: center;
