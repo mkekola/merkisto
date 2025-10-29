@@ -87,6 +87,10 @@ def update_patch(patch_id, title, description, technique, classes):
         db.execute(sql, [patch_id, class_title, class_value])
 
 def remove_patch(patch_id):
+    sql = "DELETE FROM images WHERE patch_id = ?"
+    db.execute(sql, [patch_id])
+    sql = "DELETE FROM comments WHERE patch_id = ?"
+    db.execute(sql, [patch_id])
     sql = "DELETE FROM patch_classes WHERE patch_id = ?"
     db.execute(sql, [patch_id])
     sql = "DELETE FROM patches WHERE id = ?"
