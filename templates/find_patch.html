@@ -1,32 +1,23 @@
-<!DOCTYPE html>
+{% extends "layout.html" %} {% block title %} Etsi merkkejä {% endblock %} {% block
+content %}
+<h2>Hae merkkejä</h2>
+<form action="/find_patch" method="get">
+  <p>
+    Hakusana: <br />
+    <input type="text" name="query" value="{{ query }}" />
+  </p>
+  <input type="submit" value="Etsi merkkejä" />
+</form>
+{% if query %}
+<h2>Hakutulokset haulle "{{ query }}"</h2>
 
-<html>
-  <head>
-    <title>Haku</title>
-  </head>
-
-  <body>
-    <h1>Hae merkkejä</h1>
-    <form action="/find_patch" method="get">
-      <p>
-        Hakusana: <br />
-        <input type="text" name="query" value="{{ query }}"/>
-      </p>
-      <input type="submit" value="Etsi merkkejä" />
-    </form>
-    {% if query %}
-    <h2>Hakutulokset haulle "{{ query }}"</h2>
-
-    <ul>
-      {% for patch in patches %}
-      <li>
-        <a href="/patch/{{ patch.id }}">{{ patch.title }}</a>
-      </li>
-      {% else %}
-      <p>Ei merkkejä, jotka täsmäisivät hakusanaan "{{ query }}"</p>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    <p><a href="/">Takaisin etusivulle</a></p>
-  </body>
-</html>
+<ul>
+  {% for patch in patches %}
+  <li>
+    <a href="/patch/{{ patch.id }}">{{ patch.title }}</a>
+  </li>
+  {% else %}
+  <p>Ei merkkejä, jotka täsmäisivät hakusanaan "{{ query }}"</p>
+  {% endfor %}
+</ul>
+{% endif %} {% endblock %}

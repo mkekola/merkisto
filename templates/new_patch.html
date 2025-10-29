@@ -1,45 +1,39 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Uusi merkki</title>
-  </head>
-
-  <body>
-    <h1>Lisää uusi merkki</h1>
-    <form action="/create_patch" method="post">
-      <p>
-        Otsikko: <br />
-        <input type="text" name="title" maxlength="50" required />
-      </p>
-      <p>
-        Kuvaus: <br />
-        <textarea
-          name="description"
-          rows="8"
-          cols="60"
-          maxlength="500"
-          required
-        ></textarea>
-      </p>
-      <p>
-        Tekniikka: <br />
-        <input type="radio" name="technique" value="Brodeerattu" required />
-        Brodeerattu<br />
-        <input type="radio" name="technique" value="Painettu" required />
-        Painettu<br />
-      </p>
-      {% for class in classes %}
-      <p>
-        {{ class }} <br />
-        <select name="classes">
-          <option value="">-- Valitse --</option>
-          {% for option in classes[class] %}
-          <option value="{{ class }}:{{ option }}">{{ option }}</option>
-          {% endfor %}
-        </select>
-      </p>
+{% extends "layout.html" %} {% block title %} Merkin lisääminen {% endblock %} {% block
+content %}
+<h2>Lisää uusi merkki</h2>
+<form action="/create_patch" method="post">
+  <p>
+    Otsikko: <br />
+    <input type="text" name="title" maxlength="50" required />
+  </p>
+  <p>
+    Kuvaus: <br />
+    <textarea
+      name="description"
+      rows="8"
+      cols="60"
+      maxlength="500"
+      required
+    ></textarea>
+  </p>
+  <p>
+    Tekniikka: <br />
+    <input type="radio" name="technique" value="Brodeerattu" required />
+    Brodeerattu<br />
+    <input type="radio" name="technique" value="Painettu" required />
+    Painettu<br />
+  </p>
+  {% for class in classes %}
+  <p>
+    {{ class }} <br />
+    <select name="classes">
+      <option value="">-- Valitse --</option>
+      {% for option in classes[class] %}
+      <option value="{{ class }}:{{ option }}">{{ option }}</option>
       {% endfor %}
-      <input type="submit" value="Lisää merkki" />
-    </form>
-  </body>
-</html>
+    </select>
+  </p>
+  {% endfor %}
+  <input type="submit" value="Lisää merkki" />
+</form>
+{% endblock %}

@@ -1,37 +1,9 @@
-<!DOCTYPE html>
-
-<html>
-  <head>
-    <title>Merkistö</title>
-  </head>
-
-  <body>
-    <h1>Merkistö</h1>
-
-    {% if session.username %}
-    <p>Olet kirjautunut nimellä {{ session.username }}.</p>
-    {% endif %}
-
-    <p>
-      <a href="/find_patch">Etsi merkkejä</a> |
-
-    {% if session.user_id %}
-      <a href="/new_patch">Lisää uusi merkki</a> |
-      <a href="/logout">Kirjaudu ulos</a>
-
-    {% else %}
-      <a href="/login">Kirjaudu sisään</a> |
-
-      <a href="/register">Luo tunnus</a>
-    </p>
-
-    {% endif %}
-
-    <h2>Merkit</h2>
-    <ul>
-      {% for patch in patches %}
-      <li><a href="/patch/{{ patch.id }}">{{ patch.title }}</a></li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "layout.html" %} {% block title %} Merkistö {% endblock %} {% block
+content %}
+<h2>Merkit</h2>
+<ul>
+  {% for patch in patches %}
+  <li><a href="/patch/{{ patch.id }}">{{ patch.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

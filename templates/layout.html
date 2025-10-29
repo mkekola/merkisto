@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %} Merkistö {% endblock %}</title>
+    <link rel="stylesheet" href="/static/main.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Merkistö</h1>
+    </div>
+
+    <div class="nav">
+      <nav>
+        {% if session.username %}
+        <p>Olet kirjautunut nimellä {{ session.username }}.</p>
+        {% endif %}
+
+        <p>
+          <a href="/">Etusivu</a> | <a href="/find_patch">Etsi merkkejä</a> | 
+          {% if session.user_id %} 
+          <a href="/new_patch">Lisää uusi merkki</a> |
+          <a href="/logout">Kirjaudu ulos</a>
+
+          {% else %}
+          <a href="/login">Kirjaudu sisään</a> |
+          <a href="/register">Luo tunnus</a>
+        </p>
+
+        {% endif %}
+      </nav>
+    </div>
+
+    <div class="content">{% block content %}{% endblock %}</div>
+  </body>
+</html>
