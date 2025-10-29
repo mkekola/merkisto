@@ -16,6 +16,7 @@ def add_patch(title, description, technique, user_id, classes):
     db.execute(sql, [title, description, technique, user_id])
 
     patch_id = db.last_insert_id()
+
     sql = "INSERT INTO patch_classes (patch_id, title, value) VALUES (?, ?, ?)"
     for class_title, class_value in classes:
         db.execute(sql, [patch_id, class_title, class_value])
@@ -54,6 +55,8 @@ def update_patch(patch_id, title, description, technique, classes):
         db.execute(sql, [patch_id, class_title, class_value])
 
 def remove_patch(patch_id):
+    sql = "DELETE FROM patch_classes WHERE patch_id = ?"
+    db.execute(sql, [patch_id])
     sql = "DELETE FROM patches WHERE id = ?"
     db.execute(sql, [patch_id])
 
