@@ -1,15 +1,22 @@
 body {
   font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana,
     sans-serif;
-  margin: 0;
-  max-width: 50em;
   background-color: #ffcd99;
   color: #333;
 }
 
-.patch-list {
-  gap: 1em;
-  list-style-type: none;
-  padding-left: 0;
+.main-nav{
+  display: flex;
+  justify-content: center; /* keskitys */
+  gap: 12px;               /* väli linkkien väliin */
+  flex-wrap: wrap;         /* rivittyy kapealla näytöllä */
+  margin: 8px 0 20px;
 }
-
+.main-nav a{
+  text-decoration: none;
+}
+.main-nav a + a::before{
+  content: " | ";
+  opacity: .5;             /* kevyt erotin */
+  margin: 0 .25rem 0 .1rem;
+}

@@ -17,19 +17,20 @@
     </div>
     <main class="container">
       <div class="nav">
-        <nav>
+        <nav class="main-nav">
           {% if session.username %}
           <p>Olet kirjautunut nimellä {{ session.username }}.</p>
-          {% endif %}
+          {% endif %} <br />
 
           <p>
-            <a href="/">Etusivu</a> | <a href="/find_patch">Etsi merkkejä</a> |
+            <a href="/">Etusivu</a>
+            <a href="/find_patch">Etsi merkkejä</a>
             {% if session.user_id %}
-            <a href="/new_patch">Lisää uusi merkki</a> |
+            <a href="/new_patch">Lisää uusi merkki</a>
             <a href="/logout">Kirjaudu ulos</a>
 
             {% else %}
-            <a href="/login">Kirjaudu sisään</a> |
+            <a href="/login">Kirjaudu sisään</a>
             <a href="/register">Luo tunnus</a>
           </p>
 
