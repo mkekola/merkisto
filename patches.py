@@ -25,9 +25,21 @@ def add_comment(patch_id, user_id, content):
     sql = "INSERT INTO comments (patch_id, user_id, content) VALUES (?, ?, ?)"
     db.execute(sql, [patch_id, user_id, content])
 
+def add_image(patch_id, image):
+    sql = "INSERT INTO images (patch_id, image) VALUES (?, ?)"
+    db.execute(sql, [patch_id, image])
+
+def get_image(image_id):
+    sql = "SELECT image FROM images WHERE id = ?"
+    result = db.query(sql, [image_id])
+    return result[0][0] if result else None
+
+def get_images(patch_id):
+    sql = "SELECT id FROM images WHERE patch_id = ?"
+    return db.query(sql, [patch_id])
+
 def get_comments(patch_id):
-    sql = """SELECT comments.id,
-                    comments.content,
+    sql = """SELECT comments.content,
                     comments.created_at,
                     users.id user_id,
                     users.username

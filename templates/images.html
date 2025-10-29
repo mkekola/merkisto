@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ patch.title }} kuvat</title>
+  </head>
+
+  <body>
+    <h1>{{ patch.title }} kuvat</h1>
+    <h2>Lisää kuva</h2>
+    <form action="/add_image" method="post" enctype="multipart/form-data">
+      <p>
+        Valitse kuva (PNG): <br />
+        <input type="file" name="image" accept=".png" />
+      </p>
+      <input type="hidden" name="patch_id" value="{{ patch.id }}" />
+      <input type="submit" value="Lähetä" />
+    </form>
+    <p><a href="/patch/{{ patch.id }}">Takaisin</a></p>
+    <p><a href="/">Etusivu</a></p>
+  </body>
+</html>

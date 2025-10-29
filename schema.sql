@@ -32,3 +32,9 @@ CREATE TABLE patch_classes (
     title TEXT,
     value TEXT
 );
+
+CREATE TABLE images (
+    id INTEGER PRIMARY KEY,
+    patch_id INTEGER REFERENCES patches,
+    image BLOB
+);

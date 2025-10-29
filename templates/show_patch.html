@@ -10,7 +10,14 @@
     <p>
       <a href="/edit_patch/{{ patch.id }}">Muokkaa</a>
       <a href="/remove_patch/{{ patch.id }}">Poista</a>
+      <a href="/images/{{ patch.id }}">Kuvat</a>
     </p>
+    {% endif %}
+    {% if images %}
+    <h2>Kuvat</h2>
+    {% for image in images %}
+      <img src="/image/{{ image.id }}" alt="Patch Image" />
+    {% endfor %}
     {% endif %}
     <p><strong>Kuvaus:</strong> {{ patch.description }}</p>
     <p><strong>Tekniikka:</strong> {{ patch.technique }}</p>

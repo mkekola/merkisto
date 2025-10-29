@@ -1,6 +1,7 @@
+from email.mime import image
 import sqlite3
 from flask import Flask
-from flask import abort, redirect, render_template, request, session
+from flask import abort, make_response, redirect, render_template, request, session
 import config
 import db
 import patches
@@ -43,7 +44,8 @@ def show_patch(patch_id):
         abort(404)
     classes = patches.get_classes(patch_id)
     comments = patches.get_comments(patch_id)
-    return render_template("show_patch.html", patch=patch, classes=classes, comments=comments)
+    images = patches.get_images(patch_id)
+    return render_template("show_patch.html", patch=patch, classes=classes, comments=comments, images=images)
 
 @app.route("/new_patch")
 def new_patch():
@@ -110,6 +112,52 @@ def edit_patch(patch_id):
         classes[entry["title"]] = entry["value"]
 
     return render_template("edit_patch.html", patch=patch, all_classes=all_classes, classes=classes)
+
+@app.route("/images/<int:patch_id>")
+def edit_images(patch_id):
+    require_login()
+    patch = patches.get_patch(patch_id)
+    if not patch:
+        abort(404)
+    if patch["user_id"] != session.get("user_id"):
+        abort(403)
+
+    images = patches.get_images(patch_id)
+
+    return render_template("images.html", patch=patch, images=images)
+
+@app.route("/add_image", methods=["POST"])
+def add_image():
+    require_login()
+
+    patch_id = request.form["patch_id"]
+    patch = patches.get_patch(patch_id)
+    if not patch:
+        abort(404)
+    if patch["user_id"] != session.get("user_id"):
+        abort(403)
+
+    file = request.files["image"]
+    if not file.filename.endswith(".png"):
+        return "VIRHE: vain .png kuvat sallittu"
+
+    image = file.read()
+    if len(image) > 2 * 1024 * 1024:
+        return "VIRHE: kuvan koko enintään 2MB"
+
+    patches.add_image(patch_id, image)
+
+    return redirect("/images/" + str(patch_id))
+
+@app.route("/image/<int:image_id>")
+def show_image(image_id):
+    image = patches.get_image(image_id)
+    if not image:
+        abort(404)
+
+    response = make_response(bytes(image))
+    response.headers.set("Content-Type", "image/png")
+    return response
 
 @app.route("/update_patch/<int:patch_id>", methods=["POST"])
 def update_patch(patch_id):
