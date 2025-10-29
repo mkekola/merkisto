@@ -38,6 +38,10 @@ def get_images(patch_id):
     sql = "SELECT id FROM images WHERE patch_id = ?"
     return db.query(sql, [patch_id])
 
+def remove_image(patch_id, image_id):
+    sql = "DELETE FROM images WHERE id = ? AND patch_id = ?"
+    db.execute(sql, [image_id, patch_id])
+
 def get_comments(patch_id):
     sql = """SELECT comments.content,
                     comments.created_at,

@@ -149,6 +149,21 @@ def add_image():
 
     return redirect("/images/" + str(patch_id))
 
+@app.route("/remove_images", methods=["POST"])
+def remove_images():
+    require_login()
+    patch_id = request.form["patch_id"]
+    patch = patches.get_patch(patch_id)
+    if not patch:
+        abort(404)
+    if patch["user_id"] != session.get("user_id"):
+        abort(403)
+
+    for image_id in request.form.getlist("image_id"):
+        patches.remove_image(patch_id, image_id)
+
+    return redirect("/images/" + str(patch_id))
+
 @app.route("/image/<int:image_id>")
 def show_image(image_id):
     image = patches.get_image(image_id)
