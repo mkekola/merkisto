@@ -1,23 +1,32 @@
-{% extends "layout.html" %} {% block title %} Etsi merkkejä {% endblock %} {% block
-content %}
-<h2>Hae merkkejä</h2>
-<form action="/find_patch" method="get">
-  <p>
-    Hakusana: <br />
-    <input type="text" name="query" value="{{ query }}" />
-  </p>
-  <input type="submit" value="Etsi merkkejä" />
-</form>
-{% if query %}
-<h2>Hakutulokset haulle "{{ query }}"</h2>
+{% extends "layout.html" %} {% block title %} Etsi merkkejä {% endblock %} {%
+block content %}
+<main class="wrap">
+  <section class="panel stack">
+    <h2>Hae merkkejä</h2>
+    <form class="form" action="/find_patch" method="get">
+      <div class="field">
+      <p>
+        <label for="query">Hakusana:</label>
+        <input id="query" type="text" name="query" placeholder="esim. kissa, pepe" value="{{ query }}" />
+      </p>
+      </div>
+      <div>
+      <input type="submit" value="Etsi merkkejä" />
+      </div>
+    </form>
+  </section>
+  {% if query %}
+  <h3>Hakutulokset haulle "{{ query }}"</h3>
 
-<ul>
-  {% for patch in patches %}
-  <li>
-    <a href="/patch/{{ patch.id }}">{{ patch.title }}</a>
-  </li>
-  {% else %}
-  <p>Ei merkkejä, jotka täsmäisivät hakusanaan "{{ query }}"</p>
-  {% endfor %}
-</ul>
-{% endif %} {% endblock %}
+  <ul class="patch-list wide">
+    {% for patch in patches %}
+    <li class="patch-item">
+      <a class="patch-link" href="/patch/{{ patch.id }}">{{ patch.title }}</a>
+    </li>
+    {% else %}
+    <p>Ei merkkejä, jotka täsmäisivät hakusanaan "{{ query }}"</p>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</main>
+{% endblock %}
