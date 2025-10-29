@@ -82,7 +82,15 @@ def edit_patch(patch_id):
         abort(404)
     if patch["user_id"] != session.get("user_id"):
         abort(403)
-    return render_template("edit_patch.html", patch=patch)
+
+    all_classes = patches.get_all_classes()
+    classes = {}
+    for my_class in all_classes:
+        classes[my_class] = ""
+    for entry in patches.get_classes(patch_id):
+        classes[entry["title"]] = entry["value"]
+
+    return render_template("edit_patch.html", patch=patch, all_classes=all_classes, classes=classes)
 
 @app.route("/update_patch/<int:patch_id>", methods=["POST"])
 def update_patch(patch_id):
@@ -103,7 +111,19 @@ def update_patch(patch_id):
     if not technique:
         abort(403)
 
-    patches.update_patch(patch_id, title, description, technique)
+    all_classes = patches.get_all_classes()
+
+    classes = []
+    for entry in request.form.getlist("classes"):
+        if entry:
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
+
+    patches.update_patch(patch_id, title, description, technique, classes)
 
     return redirect("/patch/" + str(patch_id))
 
