@@ -64,10 +64,16 @@ def create_patch():
         abort(403)
     user_id = session["user_id"]
 
+    all_classes = patches.get_all_classes()
+
     classes = []
     for entry in request.form.getlist("classes"):
         if entry:
             parts = entry.split(":")
+            if parts[0] not in all_classes:
+                abort(403)
+            if parts[1] not in all_classes[parts[0]]:
+                abort(403)
             classes.append((parts[0], parts[1]))
 
     patches.add_patch(title, description, technique, user_id, classes)
