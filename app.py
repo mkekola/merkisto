@@ -42,13 +42,26 @@ def show_patch(patch_id):
     if not patch:
         abort(404)
     classes = patches.get_classes(patch_id)
-    return render_template("show_patch.html", patch=patch, classes=classes)
+    comments = patches.get_comments(patch_id)
+    return render_template("show_patch.html", patch=patch, classes=classes, comments=comments)
 
 @app.route("/new_patch")
 def new_patch():
     require_login()
     classes = patches.get_all_classes()
     return render_template("new_patch.html", classes=classes)
+
+@app.route("/create_comment/<int:patch_id>", methods=["POST"])
+def create_comment(patch_id):
+    require_login()
+    content = request.form["comment"]
+    if not content or len(content) > 300:
+        abort(403)
+    user_id = session["user_id"]
+
+    patches.add_comment(patch_id, user_id, content)
+
+    return redirect("/patch/" + str(patch_id))
 
 @app.route("/create_patch", methods=["POST"])
 def create_patch():

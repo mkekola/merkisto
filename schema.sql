@@ -12,6 +12,14 @@ CREATE TABLE patches (
     user_id INTEGER REFERENCES users
 );
 
+CREATE TABLE comments (
+    id INTEGER PRIMARY KEY,
+    patch_id INTEGER REFERENCES patches,
+    user_id INTEGER REFERENCES users,
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE classes (
     id INTEGER PRIMARY KEY,
     title TEXT,

@@ -21,6 +21,22 @@ def add_patch(title, description, technique, user_id, classes):
     for class_title, class_value in classes:
         db.execute(sql, [patch_id, class_title, class_value])
 
+def add_comment(patch_id, user_id, content):
+    sql = "INSERT INTO comments (patch_id, user_id, content) VALUES (?, ?, ?)"
+    db.execute(sql, [patch_id, user_id, content])
+
+def get_comments(patch_id):
+    sql = """SELECT comments.id,
+                    comments.content,
+                    comments.created_at,
+                    users.id user_id,
+                    users.username
+             FROM comments, users
+             WHERE comments.user_id = users.id AND
+                   comments.patch_id = ?
+             ORDER BY comments.created_at ASC"""
+    return db.query(sql, [patch_id])
+
 def get_classes(patch_id):
     sql = "SELECT title, value FROM patch_classes WHERE patch_id = ?"
     return db.query(sql, [patch_id])

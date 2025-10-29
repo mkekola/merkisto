@@ -19,9 +19,27 @@
         {% for class in classes %}
           <li>{{ class.title}}: {{ class.value }}</li>
         {% endfor %}
-      {% endif %}
     </ul>
+      {% endif %}
     <p>Lisääjä: <a href="/user/{{ patch.user_id }}">{{ patch.username }}</a></p>
+    <h2>Kommentit</h2>
+    {% if session.user_id %}
+    <form action ="/create_comment/{{ patch.id }}" method="post">
+        <textarea name="comment" rows="4" cols="50" maxlength="300" required></textarea>
+      <p>
+      <input type="hidden" name="patch_id" value="{{ patch.id }}" />
+      <input type="submit" value="Lisää kommentti" />
+      </p>
+    </form>
+    {% else %}
+    <p><a href="/login">Kirjaudu sisään</a> lisätäksesi kommentin.</p>
+    {% endif %}
+    <ul>
+      {% for comment in comments %}
+        <li>{{ comment.content }} - <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a></li>
+      {% endfor %}
+    </ul>
     <p><a href="/">Takaisin etusivulle</a></p>
   </body>
 </html>
+
