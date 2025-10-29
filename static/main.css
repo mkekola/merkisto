@@ -1,0 +1,15 @@
+body {
+  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana,
+    sans-serif;
+  margin: 0;
+  max-width: 50em;
+  background-color: #ffcd99;
+  color: #333;
+}
+
+.patch-list {
+  gap: 1em;
+  list-style-type: none;
+  padding-left: 0;
+}
+
