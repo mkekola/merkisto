@@ -44,7 +44,9 @@ content %}
   </p>
 </form>
 {% else %}
-<p><a href="/login">Kirjaudu sisään</a> lisätäksesi kommentin.</p>
+<div>
+<a class="user-link" href="/login">Kirjaudu sisään</a> kommentoidaksesi.
+</div>
 {% endif %}
 <ul class="patch-list">
   {% for comment in comments %}

@@ -1,15 +1,19 @@
-{% extends "layout.html" %} {% block title %} Kirjautuminen {% endblock %} {% block
-content %}
-<h2>Kirjaudu sisään</h2>
-<form action="/login" method="post">
-  <p>
-    Tunnus: <br />
-    <input type="text" name="username" />
-  </p>
-  <p>
-    Salasana: <br />
-    <input type="password" name="password" />
-  </p>
-  <input type="submit" value="Kirjaudu" />
-</form>
+{% extends "layout.html" %} {% block title %} Kirjautuminen {% endblock %} {%
+block content %}
+<main class="wrap">
+  <section class="panel stack">
+    <h2>Kirjaudu sisään</h2>
+    <form action="/login" method="post">
+      <p>
+        Tunnus: <br />
+        <input type="text" name="username" />
+      </p>
+      <p>
+        Salasana: <br />
+        <input type="password" name="password" />
+      </p>
+      <input type="submit" value="Kirjaudu" />
+    </form>
+  </section>
+</main>
 {% endblock %}
