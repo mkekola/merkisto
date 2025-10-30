@@ -190,7 +190,7 @@ input[type="submit"]:focus-visible {
   gap: 12px;
   padding: 12px 14px;
   border-radius: 12px;
-  background: #fff;
+  background: #ff9898;
   border: 1px solid rgba(0, 0, 0, 0.06);
   text-decoration: none;
   color: inherit;
