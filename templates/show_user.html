@@ -1,10 +1,15 @@
 {% extends "layout.html" %} {% block title %} Käyttäjä {{ user.username }} {% endblock %} {% block content %}
+<main class="wrap">
+  <section class="panel stack">
 <h2>Käyttäjä {{ user.username }}</h2>
 <p>Käyttäjällä on yhteensä {{ patches | count }} merkkiä.</p>
 <h3>Merkit</h3>
-<ul>
+<ul class="patch-list wide">
   {% for patch in patches %}
-  <li><a href="/patch/{{ patch.id }}">{{ patch.title }}</a></li>
+  <li class="patch-item"><a class="patch-link" href="/patch/{{ patch.id }}">{{ patch.title }}</a></li>
   {% endfor %}
 </ul>
+<input type="submit" value="Takaisin" onclick="window.history.back()" />
+  </section>
+</main>
 {% endblock %}
