@@ -2,7 +2,8 @@
 block content %}
 <main class="wrap">
   <section class="panel stack">
-    <h2>Merkin poisto</h2>
+    <h2>{{ patch.title }}</h2>
+    <h3>Merkin poisto</h3>
     <form action="/remove_patch/{{ patch.id }}" method="post">
       <p>Oletko varma, että haluat poistaa merkin "{{ patch.title }}"?</p>
       <input type="submit" name="remove" value="Poista merkki" />
