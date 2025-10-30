@@ -210,7 +210,13 @@ input[type="submit"]:focus-visible {
   flex-wrap: wrap;
   gap: 10px;
   padding-bottom: 4px;
-  margin: 6px 0 10px;
+  margin: 10px 0 10px;
+}
+
+.gallery-image {
+  max-width: 20em;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .meta-grid {
