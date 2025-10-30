@@ -1,5 +1,7 @@
 {% extends "layout.html" %} {% block title %} Merkin muokkaus {% endblock %} {% block
 content %}
+<main class="wrap">
+  <section class="panel stack">
 <h2>Merkin muokkaus</h2>
 <form action="/update_patch/{{ patch.id }}" method="post">
   <p>
@@ -41,6 +43,8 @@ content %}
   {% endfor %}
   <input type="hidden" name="id" value="{{ patch.id }}" />
   <input type="submit" value="Tallenna muutokset" />
-  <input type="button" value="Peruuta" onclick="window.history.back()" />
+  <input type="submit" value="Peruuta" onclick="window.history.back()" />
 </form>
+  </section>
+</main>
 {% endblock %}
