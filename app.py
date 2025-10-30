@@ -1,7 +1,7 @@
 from email.mime import image
 import sqlite3
 from flask import Flask
-from flask import abort, make_response, redirect, render_template, request, session
+from flask import abort, flash, make_response, redirect, render_template, request, session
 import config
 import db
 import patches
@@ -62,6 +62,7 @@ def create_comment(patch_id):
     user_id = session["user_id"]
 
     patches.add_comment(patch_id, user_id, content)
+    flash("Kommentti lisätty onnistuneesti.")
 
     return redirect("/patch/" + str(patch_id))
 
@@ -70,12 +71,15 @@ def create_patch():
     require_login()
     title = request.form["title"]
     if not title or len(title) > 50:
+        flash("Virhe: Otsikon on oltava 1-50 merkkiä pitkä.")
         abort(403)
     description = request.form["description"]
     if not description or len(description) > 500:
+        flash("Virhe: Kuvauksen on oltava 1-500 merkkiä pitkä.")
         abort(403)
     technique = request.form["technique"]
     if not technique:
+        flash("Virhe: Tekniikan on oltava valittuna.")
         abort(403)
     user_id = session["user_id"]
 
@@ -86,8 +90,10 @@ def create_patch():
         if entry:
             parts = entry.split(":")
             if parts[0] not in all_classes:
+                flash("Virhe: Kategoriaa ei löytynyt.")
                 abort(403)
             if parts[1] not in all_classes[parts[0]]:
+                flash("Virhe: Lähdettä ei löytynyt.")
                 abort(403)
             classes.append((parts[0], parts[1]))
 
@@ -99,8 +105,10 @@ def edit_patch(patch_id):
     require_login()
     patch = patches.get_patch(patch_id)
     if not patch:
+        flash("Virhe: Merkkiä ei löytynyt.")
         abort(404)
     if patch["user_id"] != session.get("user_id"):
+        flash("Virhe: Sinulla ei ole oikeuksia muokata tätä merkkiä.")
         abort(403)
 
     all_classes = patches.get_all_classes()
@@ -117,8 +125,10 @@ def edit_images(patch_id):
     require_login()
     patch = patches.get_patch(patch_id)
     if not patch:
+        flash("Virhe: Merkkiä ei löytynyt.")
         abort(404)
     if patch["user_id"] != session.get("user_id"):
+        flash("Virhe: Sinulla ei ole oikeuksia muokata tätä merkkiä.")
         abort(403)
 
     images = patches.get_images(patch_id)
@@ -132,8 +142,10 @@ def add_image():
     patch_id = request.form["patch_id"]
     patch = patches.get_patch(patch_id)
     if not patch:
+        flash("Virhe: Merkkiä ei löytynyt.")
         abort(404)
     if patch["user_id"] != session.get("user_id"):
+        flash("Virhe: Sinulla ei ole oikeuksia muokata tätä merkkiä.")
         abort(403)
 
     file = request.files["image"]
@@ -142,7 +154,8 @@ def add_image():
 
     image = file.read()
     if len(image) > 2 * 1024 * 1024:
-        return "VIRHE: kuvan koko enintään 2MB"
+        flash("Virhe: kuvan koko enintään 2MB")
+        return redirect("/images/" + str(patch_id))
 
     patches.add_image(patch_id, image)
 
@@ -154,8 +167,10 @@ def remove_images():
     patch_id = request.form["patch_id"]
     patch = patches.get_patch(patch_id)
     if not patch:
+        flash("Virhe: Merkkiä ei löytynyt.")
         abort(404)
     if patch["user_id"] != session.get("user_id"):
+        flash("Virhe: Sinulla ei ole oikeuksia muokata tätä merkkiä.")
         abort(403)
 
     for image_id in request.form.getlist("image_id"):
@@ -167,6 +182,7 @@ def remove_images():
 def show_image(image_id):
     image = patches.get_image(image_id)
     if not image:
+        flash("Virhe: Kuvaa ei löytynyt.")
         abort(404)
 
     response = make_response(bytes(image))
@@ -178,18 +194,23 @@ def update_patch(patch_id):
     require_login()
     patch = patches.get_patch(patch_id)
     if not patch:
+        flash("Virhe: Merkkiä ei löytynyt.")
         abort(404)
     if patch["user_id"] != session["user_id"]:
+        flash("Virhe: Sinulla ei ole oikeuksia muokata tätä merkkiä.")
         abort(403)
 
     title = request.form["title"]
     if not title or len(title) > 50:
+        flash("Virhe: Otsikon on oltava 1-50 merkkiä pitkä.")
         abort(403)
     description = request.form["description"]
     if not description or len(description) > 500:
+        flash("Virhe: Kuvauksen on oltava 1-500 merkkiä pitkä.")
         abort(403)
     technique = request.form["technique"]
     if not technique:
+        flash("Virhe: Tekniikan on oltava valittuna.")
         abort(403)
 
     all_classes = patches.get_all_classes()
@@ -199,8 +220,10 @@ def update_patch(patch_id):
         if entry:
             class_title, class_value = entry.split(":")
             if class_title not in all_classes:
+                flash("Virhe: Kategoriaa ei löytynyt.")
                 abort(403)
             if class_value not in all_classes[class_title]:
+                flash("Virhe: Lähdettä ei löytynyt.")
                 abort(403)
             classes.append((class_title, class_value))
 
@@ -213,8 +236,10 @@ def remove_patch(patch_id):
     require_login()
     patch = patches.get_patch(patch_id)
     if not patch:
+        flash("Virhe: Merkkiä ei löytynyt.")
         abort(404)
     if patch["user_id"] != session.get("user_id"):
+        flash("Virhe: Sinulla ei ole oikeuksia muokata tätä merkkiä.")
         abort(403)
     if request.method == "POST":
         if "remove" in request.form:

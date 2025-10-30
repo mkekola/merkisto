@@ -32,7 +32,9 @@
           {% endif %}
         </nav>
       </div>
-
+      {% for flash_message in get_flashed_messages() %}
+      <div class="flash">{{ flash_message }}</div>
+      {% endfor %}
       <div class="content">{% block content %}{% endblock %}</div>
     </main>
   </body>
