@@ -1,9 +1,13 @@
 {% extends "layout.html" %} {% block title %} Merkin poisto {% endblock %} {%
 block content %}
-<h2>Merkin poisto</h2>
-<form action="/remove_patch/{{ patch.id }}" method="post">
-  <p>Oletko varma, että haluat poistaa merkin "{{ patch.title }}"?</p>
-  <input type="submit" name="remove" value="Poista merkki" />
-  <input type="submit" name="back" value="Peruuta" />
-</form>
+<main class="wrap">
+  <section class="panel stack">
+    <h2>Merkin poisto</h2>
+    <form action="/remove_patch/{{ patch.id }}" method="post">
+      <p>Oletko varma, että haluat poistaa merkin "{{ patch.title }}"?</p>
+      <input type="submit" name="remove" value="Poista merkki" />
+      <input type="submit" name="back" value="Peruuta" />
+    </form>
+  </section>
+</main>
 {% endblock %}
