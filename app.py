@@ -1,8 +1,9 @@
 import math
+import time
 import secrets
 import sqlite3
 from flask import Flask
-from flask import abort, flash, make_response, redirect, render_template, request, session
+from flask import abort, flash, g, make_response, redirect, render_template, request, session
 import markupsafe
 import config
 import patches
@@ -20,6 +21,16 @@ def check_csrf():
         abort(403)
     if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
+        
+@app.before_request
+def before_request():
+    g.start_time = time.time()
+
+@app.after_request
+def after_request(response):
+    elapsed_time = round(time.time() - g.start_time, 2)
+    print("elapsed time:", elapsed_time, "s")
+    return response
 
 @app.template_filter()
 def show_lines(content):
