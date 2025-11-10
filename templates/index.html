@@ -13,5 +13,12 @@ content %}
     </li>
     {% endfor %}
   </ul>
+  <nav class="pagination">
+    <p>
+      <a href="/{{ page - 1 }}">&lt;</a>
+      Sivu {{ page }}/{{ page_count }}
+      <a href="/{{ page + 1 }}">&gt;</a>
+    </p>
+  </nav>
 </main>
 {% endblock %}

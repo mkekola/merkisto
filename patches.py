@@ -1,5 +1,9 @@
 import db
 
+def patch_count():
+    sql = "SELECT COUNT(*) FROM patches"
+    return db.query(sql)[0][0]
+
 def get_all_classes():
     sql = "SELECT title, value FROM classes ORDER BY id"
     result = db.query(sql)
@@ -58,13 +62,15 @@ def get_classes(patch_id):
     sql = "SELECT title, value FROM patch_classes WHERE patch_id = ?"
     return db.query(sql, [patch_id])
 
-def get_all_patches():
+def get_all_patches(page, page_size):
     sql = """SELECT patches.id, patches.title, users.id, users.username
              FROM patches, users
              WHERE patches.user_id = users.id
-             ORDER BY patches.id DESC"""
-
-    return db.query(sql)
+             ORDER BY patches.id DESC
+             LIMIT ? OFFSET ?"""
+    limit = page_size
+    offset = page_size * (page - 1)
+    return db.query(sql, [limit, offset])
 
 def get_patch(patch_id):
     sql = """SELECT patches.id,

@@ -1,3 +1,4 @@
+import math
 import secrets
 import sqlite3
 from flask import Flask
@@ -28,9 +29,20 @@ def show_lines(content):
 
 
 @app.route("/")
-def index():
-    all_patches = patches.get_all_patches()
-    return render_template("index.html", patches=all_patches)
+@app.route("/<int:page>")
+def index(page=1):
+    patch_count = patches.patch_count()
+    page_size = 10
+    page_count = math.ceil(patch_count / page_size)
+    page_count = max(page_count, 1)
+
+    if page < 1:
+        return redirect("/1")
+    if page > page_count:
+        return redirect("/" + str(page_count))
+
+    all_patches = patches.get_all_patches(page, page_size)
+    return render_template("index.html", patches=all_patches, page=page, page_count=page_count)
 
 @app.route("/user/<int:user_id>")
 def show_user(user_id):
