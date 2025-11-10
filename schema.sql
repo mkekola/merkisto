@@ -38,3 +38,5 @@ CREATE TABLE images (
     patch_id INTEGER REFERENCES patches,
     image BLOB
 );
+
+CREATE INDEX idx_patches_user_id ON patches(user_id);

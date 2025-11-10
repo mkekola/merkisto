@@ -63,9 +63,10 @@ def get_classes(patch_id):
     return db.query(sql, [patch_id])
 
 def get_all_patches(page, page_size):
-    sql = """SELECT patches.id, patches.title, users.id, users.username
+    sql = """SELECT patches.id, patches.title, COUNT(patches.id) total, users.id, users.username
              FROM patches, users
              WHERE patches.user_id = users.id
+             GROUP BY patches.id
              ORDER BY patches.id DESC
              LIMIT ? OFFSET ?"""
     limit = page_size
