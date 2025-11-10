@@ -29,7 +29,7 @@
     {% endif %}
 
     <dl class="meta-grid">
-      <div><strong>Kuvaus:</strong> {{ patch.description }}</div>
+      <div>{{ patch.description | show_lines }}</div>
       <div><strong>Tekniikka:</strong> {{ patch.technique }}</div>
       {% if classes %} {% for class in classes %}
       <li class="class-list">
@@ -61,7 +61,7 @@
     <ul class="patch-list">
       {% for comment in comments %}
       <li class="patch-item comments">
-        {{ comment.content }}
+        {{ comment.content | show_lines }}
         <a class="user-link" href="/user/{{ comment.user_id }}"
           >~ {{ comment.username }}</a
         >
