@@ -1,10 +1,6 @@
-import math
-import time
-import secrets
-import sqlite3
+import markupsafe, math, time, secrets, sqlite3
 from flask import Flask
 from flask import abort, flash, g, make_response, redirect, render_template, request, session
-import markupsafe
 import config
 import patches
 import users
@@ -21,7 +17,7 @@ def check_csrf():
         abort(403)
     if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
-        
+
 @app.before_request
 def before_request():
     g.start_time = time.time()
@@ -192,7 +188,8 @@ def add_image():
 
     file = request.files["image"]
     if not file.filename.endswith(".png"):
-        return "VIRHE: vain .png kuvat sallittu"
+        flash("Virhe: Vain PNG-kuvat ovat sallittuja.")
+        return redirect("/images/" + str(patch_id))
 
     image = file.read()
     if len(image) > 2 * 1024 * 1024:
@@ -306,12 +303,14 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "VIRHE: salasanat eivät ole samat"
+        flash("Virhe: Salasanat eivät täsmää.")
+        return redirect("/register")
 
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return "VIRHE: käyttäjätunnus on jo olemassa" + redirect("/register")
+        flash("Virhe: Käyttäjätunnus on jo käytössä.")
+        return redirect("/register")
 
     return redirect("/login")
 
@@ -329,8 +328,9 @@ def login():
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
-    else:
-        return "VIRHE: väärä tunnus tai salasana" + redirect("/login")
+        else:
+            flash("Virhe: Väärä tunnus tai salasana.")
+            return redirect("/login")
 
 @app.route("/logout")
 def logout():
