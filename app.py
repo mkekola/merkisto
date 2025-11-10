@@ -43,7 +43,6 @@ def show_user(user_id):
 
 @app.route("/find_patch", methods=["GET", "POST"])
 def find_patch():
-    check_csrf()
     query = request.args.get("query")
     if query:
         results = patches.find_patches(query)
