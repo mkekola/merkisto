@@ -4,10 +4,10 @@ endblock %} {% block content %}
   <section class="panel stack">
     <h2>{{ patch.title }} kuvat</h2>
     <form action="/remove_images" method="post">
-      <h3>Poista kuvat</h3>
+      <label for="remove_images"><h3>Poista kuvat</h3></label>
       {% for image in images %}
       <div>
-        <input type="checkbox" name="image_id" value="{{ image.id }}" />
+        <input type="checkbox" name="image_id" id="remove_images" value="{{ image.id }}" />
         <img src="/image/{{ image.id }}" alt="Patch Image" />
       </div>
       {% endfor %}
@@ -16,10 +16,10 @@ endblock %} {% block content %}
       <input type="submit" value="Poista valitut kuvat" />
     </form>
 
-    <h3>Lisää kuva</h3>
+    <label for="image"><h3>Lisää kuva</h3></label>
     <form action="/add_image" method="post" enctype="multipart/form-data">
       <p>
-        <input type="file" name="image" accept=".png" />
+        <input type="file" name="image" id="image" accept=".png" />
       </p>
       <input type="hidden" name="patch_id" value="{{ patch.id }}" />
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />

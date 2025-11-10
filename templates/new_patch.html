@@ -5,13 +5,14 @@
     <h2>Lisää uusi merkki</h2>
     <form action="/create_patch" method="post">
       <p>
-        Otsikko: <br />
-        <input type="text" name="title" maxlength="50" required />
+        <label for="title">Otsikko:</label> <br />
+        <input type="text" name="title" id="title" maxlength="50" required />
       </p>
       <p>
-        Kuvaus: <br />
+        <label for="description">Kuvaus:</label> <br />
         <textarea
           name="description"
+          id="description"
           rows="8"
           cols="60"
           maxlength="500"
@@ -19,7 +20,7 @@
         ></textarea>
       </p>
       <p>
-        Tekniikka: <br />
+        <label for="technique">Tekniikka:</label> <br />
         <input type="radio" name="technique" value="Brodeerattu" required />
         Brodeerattu<br />
         <input type="radio" name="technique" value="Painettu" required />
@@ -27,8 +28,8 @@
       </p>
       {% for class in classes %}
       <p>
-        {{ class }} <br />
-        <select name="classes">
+        <label for="class{{ class }}">{{ class }}:</label> <br />
+        <select name="classes" id="class{{ class }}">
           <option value="">-- Valitse --</option>
           {% for option in classes[class] %}
           <option value="{{ class }}:{{ option }}">{{ option }}</option>

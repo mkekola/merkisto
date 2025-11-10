@@ -37,11 +37,12 @@
       </li>
       {% endfor %} {% endif %}
     </dl>
-    <h3>Kommentit</h3>
     {% if session.user_id %}
+    <label for="comment">Lisää kommentti:</label>
     <form action="/create_comment/{{ patch.id }}" method="post">
       <textarea
         name="comment"
+        id="comment"
         rows="4"
         cols="50"
         maxlength="300"
@@ -58,6 +59,7 @@
       <a class="user-link" href="/login">Kirjaudu sisään</a> kommentoidaksesi.
     </div>
     {% endif %}
+    <h3>Kommentit</h3>
     <ul class="patch-list">
       {% for comment in comments %}
       <li class="patch-item comments">

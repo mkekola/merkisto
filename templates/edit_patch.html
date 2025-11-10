@@ -6,19 +6,21 @@ block content %}
     <h3>Merkin muokkaus</h3>
     <form action="/update_patch/{{ patch.id }}" method="post">
       <p>
-        Otsikko: <br />
+        <label for="title">Otsikko:</label> <br />
         <input
           type="text"
           name="title"
+          id="title"
           value="{{ patch.title }}"
           maxlength="50"
           required
         />
       </p>
       <p>
-        Kuvaus: <br />
+        <label for="description">Kuvaus:</label> <br />
         <textarea
           name="description"
+          id="description"
           rows="8"
           cols="60"
           maxlength="500"
@@ -28,7 +30,7 @@ block content %}
         >
       </p>
       <p>
-        Tekniikka: <br />
+        <label for="technique">Tekniikka:</label> <br />
         <input type="radio" name="technique" value="Brodeerattu" {% if
         patch.technique == "Brodeerattu" %}checked{% endif %} required />
         Brodeerattu<br />
@@ -38,8 +40,8 @@ block content %}
       </p>
       {% for class in all_classes %}
       <p>
-        {{ class }}: <br />
-        <select name="classes">
+        <label for="class{{ class }}">{{ class }}:</label> <br />
+        <select name="classes" id="class{{ class }}">
           <option value="">-- Valitse --</option>
           {% for option in all_classes[class] %} {% if classes[class] == option
           %}
