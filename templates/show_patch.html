@@ -49,6 +49,7 @@
       ></textarea>
       <p>
         <input type="hidden" name="patch_id" value="{{ patch.id }}" />
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
         <input type="submit" value="Lisää kommentti" />
       </p>
     </form>

@@ -6,6 +6,7 @@ block content %}
     <h3>Merkin poisto</h3>
     <form action="/remove_patch/{{ patch.id }}" method="post">
       <p>Oletko varma, että haluat poistaa merkin "{{ patch.title }}"?</p>
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" name="remove" value="Poista merkki" />
       <input type="submit" name="back" value="Peruuta" />
     </form>

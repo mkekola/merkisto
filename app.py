@@ -1,4 +1,4 @@
-from email.mime import image
+import secrets
 import sqlite3
 from flask import Flask
 from flask import abort, flash, make_response, redirect, render_template, request, session
@@ -12,6 +12,12 @@ app.secret_key = config.secret_key
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
 @app.route("/")
@@ -29,6 +35,7 @@ def show_user(user_id):
 
 @app.route("/find_patch", methods=["GET", "POST"])
 def find_patch():
+    check_csrf()
     query = request.args.get("query")
     if query:
         results = patches.find_patches(query)
@@ -56,6 +63,8 @@ def new_patch():
 @app.route("/create_comment/<int:patch_id>", methods=["POST"])
 def create_comment(patch_id):
     require_login()
+    check_csrf()
+
     content = request.form["comment"]
     if not content or len(content) > 300:
         abort(403)
@@ -69,6 +78,8 @@ def create_comment(patch_id):
 @app.route("/create_patch", methods=["POST"])
 def create_patch():
     require_login()
+    check_csrf()
+
     title = request.form["title"]
     if not title or len(title) > 50:
         flash("Virhe: Otsikon on oltava 1-50 merkkiä pitkä.")
@@ -138,6 +149,7 @@ def edit_images(patch_id):
 @app.route("/add_image", methods=["POST"])
 def add_image():
     require_login()
+    check_csrf()
 
     patch_id = request.form["patch_id"]
     patch = patches.get_patch(patch_id)
@@ -164,6 +176,8 @@ def add_image():
 @app.route("/remove_images", methods=["POST"])
 def remove_images():
     require_login()
+    check_csrf()
+
     patch_id = request.form["patch_id"]
     patch = patches.get_patch(patch_id)
     if not patch:
@@ -192,6 +206,8 @@ def show_image(image_id):
 @app.route("/update_patch/<int:patch_id>", methods=["POST"])
 def update_patch(patch_id):
     require_login()
+    check_csrf()
+
     patch = patches.get_patch(patch_id)
     if not patch:
         flash("Virhe: Merkkiä ei löytynyt.")
@@ -234,6 +250,7 @@ def update_patch(patch_id):
 @app.route("/remove_patch/<int:patch_id>", methods=["GET", "POST"])
 def remove_patch(patch_id):
     require_login()
+
     patch = patches.get_patch(patch_id)
     if not patch:
         flash("Virhe: Merkkiä ei löytynyt.")
@@ -242,6 +259,7 @@ def remove_patch(patch_id):
         flash("Virhe: Sinulla ei ole oikeuksia muokata tätä merkkiä.")
         abort(403)
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             patches.remove_patch(patch_id)
             return redirect("/")
@@ -280,6 +298,7 @@ def login():
         if user_id:
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
     else:
         return "VIRHE: väärä tunnus tai salasana" + redirect("/login")

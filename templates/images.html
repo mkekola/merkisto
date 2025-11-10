@@ -12,6 +12,7 @@ endblock %} {% block content %}
       </div>
       {% endfor %}
       <input type="hidden" name="patch_id" value="{{ patch.id }}" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" value="Poista valitut kuvat" />
     </form>
 
@@ -21,6 +22,7 @@ endblock %} {% block content %}
         <input type="file" name="image" accept=".png" />
       </p>
       <input type="hidden" name="patch_id" value="{{ patch.id }}" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" value="Lähetä" />
     </form>
     <input type="submit" value="Takaisin" onclick="window.history.back()" />

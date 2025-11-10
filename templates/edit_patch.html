@@ -53,6 +53,7 @@ block content %}
       </p>
       {% endfor %}
       <input type="hidden" name="id" value="{{ patch.id }}" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" value="Tallenna muutokset" />
       <input type="submit" value="Peruuta" onclick="window.history.back()" />
     </form>
