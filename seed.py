@@ -8,8 +8,8 @@ db.execute("DELETE FROM comments")
 db.execute("DELETE FROM users")
 
 user_count = 1000
-patch_count = 10**5
-comment_count = 10**6
+patch_count = 10**6
+comment_count = 10**7
 
 for i in range(1, user_count + 1):
     db.execute("INSERT INTO users (username) VALUES (?)",
