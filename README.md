@@ -38,3 +38,34 @@
 4. Hae merkkejä nimen tai kuvauksen perusteella.
 5. Lisää kuvia ja kategorioita merkeille.
 6. Kommentoi merkkejä ja tarkastele muiden käyttäjien profiileja.
+
+## Suuri tietomäärä
+
+Sovellus on testattu seed.py-tiedoston avulla, joka lisää tietokantaan miljoonia rivejä testidataa.
+
+Tässä on esimerkki sovelluksen latausajasta suuren tietomäärän kanssa:
+
+```
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+elapsed time: 0.01 s
+127.0.0.1 - - [10/Nov/2025 19:54:27] "GET / HTTP/1.1" 200 -
+elapsed time: 0.0 s
+127.0.0.1 - - [10/Nov/2025 19:54:27] "GET /static/main.css HTTP/1.1" 200 -
+elapsed time: 0.0 s
+127.0.0.1 - - [10/Nov/2025 19:54:27] "GET /static/images/merkisto-hero-1.png HTTP/1.1" 304 -
+elapsed time: 0.01 s
+127.0.0.1 - - [10/Nov/2025 19:54:43] "GET /2 HTTP/1.1" 200 -
+elapsed time: 0.0 s
+127.0.0.1 - - [10/Nov/2025 19:54:43] "GET /static/main.css HTTP/1.1" 200 -
+elapsed time: 0.0 s
+127.0.0.1 - - [10/Nov/2025 19:54:43] "GET /static/images/merkisto-hero-1.png HTTP/1.1" 304 -
+elapsed time: 0.65 s
+127.0.0.1 - - [10/Nov/2025 19:54:48] "GET /patch/999990 HTTP/1.1" 200 -
+elapsed time: 0.0 s
+127.0.0.1 - - [10/Nov/2025 19:54:48] "GET /static/main.css HTTP/1.1" 304 -
+elapsed time: 0.0 s
+127.0.0.1 - - [10/Nov/2025 19:54:48] "GET /static/images/merkisto-hero-1.png HTTP/1.1" 304 -
+```
+
+Testistä huomataan että sovellus pystyy käsittelemään suuren tietomäärän kohtuullisella vasteajalla. Eniten aikaa vie hero-kuvan lataaminen, joka on odotettavissa.
