@@ -4,7 +4,6 @@ from flask import Flask
 from flask import abort, flash, make_response, redirect, render_template, request, session
 import markupsafe
 import config
-import db
 import patches
 import users
 
@@ -38,8 +37,8 @@ def show_user(user_id):
     user = users.get_user(user_id)
     if not user:
         abort(404)
-    patches = users.get_patches(user_id)
-    return render_template("show_user.html", user=user, patches=patches)
+    user_patches = users.get_patches(user_id)
+    return render_template("show_user.html", user=user, patches=user_patches)
 
 @app.route("/find_patch", methods=["GET", "POST"])
 def find_patch():
@@ -59,7 +58,8 @@ def show_patch(patch_id):
     classes = patches.get_classes(patch_id)
     comments = patches.get_comments(patch_id)
     images = patches.get_images(patch_id)
-    return render_template("show_patch.html", patch=patch, classes=classes, comments=comments, images=images)
+    return render_template("show_patch.html", patch=patch, classes=classes,
+                           comments=comments, images=images)
 
 @app.route("/new_patch")
 def new_patch():
@@ -270,8 +270,7 @@ def remove_patch(patch_id):
         if "remove" in request.form:
             patches.remove_patch(patch_id)
             return redirect("/")
-        elif "back" in request.form:
-            return redirect("/patch/" + str(patch_id))
+        return redirect("/patch/" + str(patch_id))
     return render_template("remove_patch.html", patch=patch)
 
 @app.route("/register")
@@ -316,5 +315,3 @@ def logout():
         del session["user_id"]
         del session["username"]
     return redirect("/")
-
-
