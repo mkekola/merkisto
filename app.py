@@ -311,6 +311,7 @@ def create():
     except sqlite3.IntegrityError:
         flash("Virhe: Käyttäjätunnus on jo käytössä.")
         return redirect("/register")
+    flash("Käyttäjätunnus luotu onnistuneesti. Voit nyt kirjautua sisään.")
 
     return redirect("/login")
 
