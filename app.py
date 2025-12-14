@@ -1,4 +1,8 @@
-import markupsafe, math, time, secrets, sqlite3
+import secrets
+import sqlite3
+import time
+import math
+import markupsafe
 from flask import Flask
 from flask import abort, flash, g, make_response, redirect, render_template, request, session
 import config
@@ -20,7 +24,7 @@ def check_csrf():
 
 @app.before_request
 def before_request():
-    g.start_time = time.time()
+    setattr(g, "start_time", time.time())
 
 @app.after_request
 def after_request(response):
@@ -329,9 +333,8 @@ def login():
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
-        else:
-            flash("Virhe: Väärä tunnus tai salasana.")
-            return redirect("/login")
+        flash("Virhe: Väärä tunnus tai salasana.")
+        return redirect("/login")
 
 @app.route("/logout")
 def logout():
