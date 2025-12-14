@@ -16,19 +16,19 @@
 - [X] Käyttäjä pystyy kommentoimaan omia sekä muiden lisäämiä merkkejä.
 
 ## Sovelluksen asennusohjeet
-1. Kloonaa repositorio paikalliselle koneellesi suorittamalla komento:
+1. Kloonaa repositorio paikalliselle koneellesi suorittamalla komento: <br/>
    ```git clone https://github.com/mkekola/merkisto.git```
-2. Siirry projektin juurihakemistoon suorittamalla komento:
+2. Siirry projektin juurihakemistoon suorittamalla komento: <br/>
    ```cd merkisto```
-3. Luo ja aktivoi virtuaaliympäristö suorittamalla komennot:
-   ```python -m venv venv```
+3. Luo ja aktivoi virtuaaliympäristö suorittamalla komennot: <br/>
+   ```python3 -m venv venv``` <br/>
    ```source venv/bin/activate```
-4. Asenna riippuvuudet:
+4. Asenna riippuvuudet: <br/>
    ```pip install flask```
-5. Alusta tietokannat suorittamalla komennot:
-   ```sqlite3 database.db < schema.sql```
+5. Alusta tietokannat suorittamalla komennot: <br/>
+   ```sqlite3 database.db < schema.sql``` <br/>
    ```sqlite3 database.db < init.sql```
-6. Käynnistä sovellus suorittamalla komento:
+6. Käynnistä sovellus suorittamalla komento: <br/>
    ```flask run```
 
 ## Sovelluksen käyttöohjeet
