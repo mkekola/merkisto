@@ -6,9 +6,9 @@ endblock %} {% block content %}
     <form action="/remove_images" method="post">
       <label for="remove_images"><h3>Poista kuvat</h3></label>
       {% for image in images %}
-      <div>
+      <div class="gallery">
         <input type="checkbox" name="image_id" id="remove_images" value="{{ image.id }}" />
-        <img src="/image/{{ image.id }}" alt="Patch Image" />
+        <img class="gallery-image" src="/image/{{ image.id }}" alt="Patch Image" />
       </div>
       {% endfor %}
       <input type="hidden" name="patch_id" value="{{ patch.id }}" />
