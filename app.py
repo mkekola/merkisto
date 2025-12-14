@@ -304,6 +304,9 @@ def register():
 @app.route("/create", methods=["POST"])
 def create():
     username = request.form["username"]
+    if not username or len(username) > 16:
+        flash("Virhe: Käyttäjätunnuksen on oltava 1-16 merkkiä pitkä.")
+        return redirect("/register")
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
@@ -312,10 +315,10 @@ def create():
 
     try:
         users.create_user(username, password1)
+        flash("Käyttäjätunnus luotu onnistuneesti. Voit nyt kirjautua sisään.")
     except sqlite3.IntegrityError:
         flash("Virhe: Käyttäjätunnus on jo käytössä.")
         return redirect("/register")
-    flash("Käyttäjätunnus luotu onnistuneesti. Voit nyt kirjautua sisään.")
 
     return redirect("/login")
 
