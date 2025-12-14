@@ -50,7 +50,11 @@
       ></textarea>
       <p>
         <input type="hidden" name="patch_id" value="{{ patch.id }}" />
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+        <input
+          type="hidden"
+          name="csrf_token"
+          value="{{ session.csrf_token }}"
+        />
         <input type="submit" value="Lisää kommentti" />
       </p>
     </form>
@@ -61,12 +65,15 @@
     {% endif %}
     <h3>Kommentit</h3>
     <ul class="patch-list">
-      {% for comment in comments %}
+      {% for comment in comments | reverse %}
       <li class="patch-item comments">
         {{ comment.content | show_lines }}
         <a class="user-link" href="/user/{{ comment.user_id }}"
           >~ {{ comment.username }}</a
         >
+        <p style="font-size: small; font-style: italic">
+          {{ comment.created_at }}
+        </p>
       </li>
       {% endfor %}
     </ul>
