@@ -241,3 +241,28 @@ input[type="submit"]:focus-visible {
 .class-list {
   list-style: none;
 }
+
+.panel-stack a {
+  display: inline-block;
+  font-size: small;
+  appearance: none;
+  cursor: pointer;
+  background: var(--accent);
+  color: var(--ink);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-top: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.05s ease, box-shadow 0.15s ease,
+    background-color 0.2s ease;
+}
+.panel-stack a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+.panel-stack a:focus-visible {
+  outline: 3px solid rgba(255, 143, 179, 0.4);
+  outline-offset: 2px;
+}

@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block title %} {{ patch.title }} kuvat {%
 endblock %} {% block content %}
 <main class="wrap">
-  <section class="panel stack">
+  <section class="panel-stack">
     <h2>{{ patch.title }} kuvat</h2>
     <form action="/remove_images" method="post">
       <label for="remove_images"><h3>Poista kuvat</h3></label>
@@ -25,7 +25,7 @@ endblock %} {% block content %}
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" value="Lähetä" />
     </form>
-    <input type="submit" value="Takaisin" onclick="window.history.back()" />
+    <a href="/patch/{{ patch.id }}">Takaisin</a>
   </section>
 </main>
 {% endblock %}
