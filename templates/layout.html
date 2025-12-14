@@ -14,7 +14,7 @@
       <div class="nav">
         <nav class="main-nav">
           {% if session.username %}
-          <p>Olet kirjautunut nimellä {{ session.username }}.</p>
+          <p>Olet kirjautunut nimellä <a href="/user/{{ session.user_id }}">{{ session.username }}</a>.</p>
           {% endif %} <br />
 
           <p>
